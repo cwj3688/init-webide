@@ -1,0 +1,47 @@
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy_server
+    restart: unless-stopped
+    ports:
+      - "80:80"    # HTTP (Let's Encrypt 인증용)
+      - "443:443"  # HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile   # 위에서 생성한 Caddyfile 마운트
+      - caddy_data:/data                   # Caddy 데이터 (인증서 등) 저장용 볼륨
+      # - caddy_config:/config             # Caddy 설정 저장용 볼륨 (필요시)
+    networks:
+      - caddy_network
+  code-server:
+    image: code-server-hol3
+    container_name: code-server-hol3
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/vmuser/project:/home/coder/project
+      - /var/run/docker.sock:/var/run/docker.sock
+      - tf_scp_data:/home/coder/.scp
+      - kube_config_data:/home/coder/.kube
+      - code_config:/home/coder/.config
+      - code_local:/home/coder/.local
+    environment:
+      - PASSWORD=admin12345!!
+    command: /home/coder/project
+    # command: --auth none /home/coder/project
+    group_add:
+      # - $(shell getent group docker | cut -d: -f3)
+      - ${DOCKER_GID}
+    networks:
+      - caddy_network
+
+volumes:
+  caddy_data:
+  kube_config_data:
+  tf_scp_data:
+  code_config:
+  code_local:
+
+networks:
+  caddy_network:
+    driver: bridge
