@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get public IP using ipconfig.me
-PUBLIC_IP=$(curl -s ipconfig.me)
+PUBLIC_IP=$(curl -s ifconfig.me)
 
 # Replace [VM-Public-IP] with actual public IP in Caddyfile
 sed -i "s/\[VM-Public-IP\]/$PUBLIC_IP/g" Caddyfile
