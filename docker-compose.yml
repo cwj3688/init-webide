@@ -18,6 +18,7 @@ services:
     restart: always
     ports:
       - "3000:3000"
+      - "8080:8080"
     volumes:
       - /home/vmuser/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
