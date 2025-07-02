@@ -17,7 +17,7 @@ services:
     container_name: code-server-hol3
     restart: always
     ports:
-      - "8080:8080"
+      - "3000:3000"
     volumes:
       - /home/vmuser/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
