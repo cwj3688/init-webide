@@ -15,13 +15,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Terraform
-ARG TERRAFORM_VERSION="1.11.3"
-RUN wget --progress=dot:giga "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
-    unzip -q "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
-    rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+RUN wget -O - https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/hashicorp.list && \
+    apt-get update && \
+    apt-get install -y terraform && \
     terraform --version && \
     # Install Terraform autocomplete
-    terraform -install-autocomplete
+    terraform -install-autocomplete && \
+    # Clean up the apt cache to reduce image size
+    rm -rf /var/lib/apt/lists/*
 
 # Install Docker CLI (using official Docker DEBIAN repository)
 RUN mkdir -p /etc/apt/keyrings && \
