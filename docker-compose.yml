@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /home/vmuser/project:/home/coder/project
+      - /home/ubuntu/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
       - tf_scp_data:/home/coder/.scp
       - kube_config_data:/home/coder/.kube
