@@ -62,7 +62,6 @@ chown -R 1000:1000 ~/
 
 ## 파일 구조
 
-- `initscript.sh`: 메인 초기화 스크립트
 - `install_docker.sh`: Docker 설치 스크립트
 - `update_ip.sh`: Public IP 업데이트 스크립트
 - `Dockerfile`: Code Server 이미지 빌드 파일
