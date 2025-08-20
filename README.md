@@ -33,7 +33,7 @@ set -e
 # 웹 IDE 초기화를 위한 저장소 URL과 디렉토리, 이미지 이름 설정
 REPO_URL="https://github.com/cwj3688/init-webide.git"
 REPO_DIR="init-webide"
-IMAGE_NAME="code-server-hol3"
+IMAGE_NAME="cwj3688/code-server-hol3"
 PROJECT_DIR="/home/ubuntu/project"
 
 # 저장소 클론 및 디렉토리 이동
@@ -48,8 +48,8 @@ chmod +x install_docker.sh
 chmod +x update_ip.sh
 ./update_ip.sh
 
-# Docker 이미지 빌드
-docker build -t "$IMAGE_NAME" .
+# Docker 이미지 다운로드
+docker pull "$IMAGE_NAME"
 
 # Docker 그룹 ID 가져와서 컨테이너 실행
 DOCKER_GID=$(getent group docker | cut -d: -f3) docker compose up -d

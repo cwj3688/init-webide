@@ -13,7 +13,7 @@ services:
     networks:
       - caddy_network
   code-server:
-    image: code-server-hol3
+    image: cwj3688/code-server-hol3
     container_name: code-server-hol3
     restart: always
     ports:
