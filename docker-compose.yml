@@ -22,11 +22,11 @@ services:
     volumes:
       - /home/ubuntu/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
-      - tf_scp_config_data:/home/coder/.scp
-      - tf_scp_v2_config_data:/home/coder/.scpconfig
-      - kube_config_data:/home/coder/.kube
-      - code_config:/home/coder/.config
-      - code_local:/home/coder/.local
+      - /home/ubuntu/.scp:/home/coder/.scp
+      - /home/ubuntu/.scpconfig:/home/coder/.scpconfig
+      - /home/ubuntu/.kube:/home/coder/.kube
+      - /home/ubuntu/.config:/home/coder/.config
+      - /home/ubuntu/.local:/home/coder/.local
     environment:
       # - PASSWORD=admin12345!!
       - PASSWORD=${PASSWORD}
