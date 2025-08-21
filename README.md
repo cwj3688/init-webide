@@ -34,7 +34,8 @@ set -e
 REPO_URL="https://github.com/cwj3688/init-webide.git"
 REPO_DIR="init-webide"
 IMAGE_NAME="cwj3688/code-server-hol3"
-PROJECT_DIR="/home/ubuntu/project"
+HOME_DIR="/home/ubuntu"
+PROJECT_DIR="${HOME_DIR}/project"
 
 # 저장소 클론 및 디렉토리 이동
 git clone "$REPO_URL"
@@ -48,16 +49,36 @@ chmod +x install_docker.sh
 chmod +x update_ip.sh
 ./update_ip.sh
 
-# Docker 이미지 다운로드
+# Docker 이미지 빌드
 docker pull "$IMAGE_NAME"
 
-# Docker 그룹 ID 가져와서 컨테이너 실행
-DOCKER_GID=$(getent group docker | cut -d: -f3) docker compose up -d
-
-# 프로젝트 디렉토리 생성 및 권한 설정
+# 프로젝트 디렉토리 생성
 mkdir -p "$PROJECT_DIR"
+mkdir -p "${HOME_DIR}/.scp" "${HOME_DIR}/.scpconfig" "${HOME_DIR}/.kube" "${HOME_DIR}/.config" "${HOME_DIR}/.local"
+# 비밀번호 생성
+PASSWORD=$(openssl rand -base64 12)
+echo "Your Web-IDE Password: ${PASSWORD}" > "${PROJECT_DIR}/password.txt"
+# 콘솔에 패스워드 및 저장 경로 출력 
+echo "================================================================"
+echo "✅ A new password for the Web-IDE has been generated."
+echo "   Password: ${PASSWORD}"
+echo "   It has been saved to: ${PROJECT_DIR}/web-ide-password.txt"
+echo "================================================================"
+
+# Docker 그룹 ID 가져와서 컨테이너 실행
+#DOCKER_GID=$(getent group docker | cut -d: -f3) docker compose up -d
+DOCKER_GID=$(getent group docker | cut -d: -f3) PASSWORD=${PASSWORD} docker compose up -d
+
+# 권한 설정
+chown -R 1000:1000 "$HOME_DIR"
 chown -R 1000:1000 "$PROJECT_DIR"
-chown -R 1000:1000 ~/
+chown -R 1000:1000 "${HOME_DIR}/.scp"
+chown -R 1000:1000 "${HOME_DIR}/.scpconfig"
+chown -R 1000:1000 "${HOME_DIR}/.kube"
+chown -R 1000:1000 "${HOME_DIR}/.config"
+chown -R 1000:1000 "${HOME_DIR}/.local"
+
+echo "🎉 Web-IDE setup is complete!"
 ```
 
 ## 파일 구조

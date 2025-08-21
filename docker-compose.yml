@@ -22,7 +22,8 @@ services:
     volumes:
       - /home/ubuntu/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
-      - tf_scp_data:/home/coder/.scp
+      - tf_scp_config_data:/home/coder/.scp
+      - tf_scp_v2_config_data:/home/coder/.scpconfig
       - kube_config_data:/home/coder/.kube
       - code_config:/home/coder/.config
       - code_local:/home/coder/.local
@@ -40,7 +41,8 @@ services:
 volumes:
   caddy_data:
   kube_config_data:
-  tf_scp_data:
+  tf_scp_config_data:
+  tf_scp_v2_config_data:
   code_config:
   code_local:
 
