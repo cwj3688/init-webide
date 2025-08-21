@@ -27,7 +27,8 @@ services:
       - code_config:/home/coder/.config
       - code_local:/home/coder/.local
     environment:
-      - PASSWORD=admin12345!!
+      # - PASSWORD=admin12345!!
+      - PASSWORD=${PASSWORD}
     command: /home/coder/project
     # command: --auth none /home/coder/project
     group_add:
