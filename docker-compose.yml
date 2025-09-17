@@ -23,7 +23,7 @@ services:
       - /home/ubuntu/project:/home/coder/project
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/ubuntu/.scp:/home/coder/.scp
-      - /home/ubuntu/.scpcon:/home/coder/.scpcon
+      - /home/ubuntu/.scpconf:/home/coder/.scpconf
       - /home/ubuntu/.kube:/home/coder/.kube
       - /home/ubuntu/.config:/home/coder/.config
       - /home/ubuntu/.local:/home/coder/.local
