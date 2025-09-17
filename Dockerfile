@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.100.3
+FROM codercom/code-server:4.103.1
 
 USER root
 
@@ -61,7 +61,7 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
     rm get_helm.sh
 
 # --- Kubectl ---
-ARG KUBECTL_VERSION="1.30.6"
+ARG KUBECTL_VERSION="1.31.8"
 RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
     mv kubectl /usr/local/bin/kubectl && \

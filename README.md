@@ -54,11 +54,11 @@ docker pull "$IMAGE_NAME"
 
 # 프로젝트 및 설정 디렉토리 생성
 mkdir -p "$PROJECT_DIR"
-mkdir -p "${HOME_DIR}/.scp" "${HOME_DIR}/.scpconfig" "${HOME_DIR}/.kube" "${HOME_DIR}/.config" "${HOME_DIR}/.local"
+mkdir -p "${HOME_DIR}/.scp" "${HOME_DIR}/.scpconf" "${HOME_DIR}/.kube" "${HOME_DIR}/.config" "${HOME_DIR}/.local"
 
 # 랜덤 패스워드 생성 및 파일에 저장
 PASSWORD=$(openssl rand -base64 12)
-echo "Your Web-IDE Password: ${PASSWORD}" > "${PROJECT_DIR}/web-ide-password.txt"
+echo "Your Web-IDE Password: ${PASSWORD}" > "${PROJECT_DIR}/env-info.txt"
 
 # Docker 그룹 ID 및 패스워드를 환경 변수로 전달하여 컨테이너 실행
 DOCKER_GID=$(getent group docker | cut -d: -f3) PASSWORD=${PASSWORD} docker compose up -d
@@ -70,7 +70,7 @@ chown -R 1000:1000 "$HOME_DIR"
 echo "================================================================"
 echo "   A new password for the Web-IDE has been generated."
 echo "   Password: ${PASSWORD}"
-echo "   It has been saved to: ${PROJECT_DIR}/web-ide-password.txt"
+echo "   It has been saved to: ${PROJECT_DIR}/env-info.txt"
 echo "================================================================"
 
 echo "Web-IDE setup is complete!"
