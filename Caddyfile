@@ -1,3 +1,11 @@
-[VM-Public-IP].sslip.io {
+(proxy) {
     reverse_proxy code-server:8080
+}
+
+http://[VM-Public-IP].sslip.io {
+    import proxy
+}
+
+[VM-Public-IP].sslip.io {
+    import proxy
 }
