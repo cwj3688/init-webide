@@ -40,6 +40,7 @@ PROJECT_DIR="${HOME_DIR}/project" # HOME_DIR 변수를 사용하여 경로 설�
 # 저장소 클론 및 디렉토리 이동
 git clone "$REPO_URL"
 cd "$REPO_DIR"
+git checkout no-tls
 
 # Docker 설치 스크립트 실행
 chmod +x install_docker.sh
