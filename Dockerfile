@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.103.1
+FROM codercom/code-server:4.115.0
 
 USER root
 
@@ -67,6 +67,13 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
     mv kubectl /usr/local/bin/kubectl && \
     kubectl version --client
 
+# --- SCP CLI ---
+RUN curl -fsSL -o /usr/local/bin/scp-cli https://docs.e.samsungsdscloud.com/tools/cli/linux/scp-cli && \
+    chmod +x /usr/local/bin/scp-cli && \
+    # Verify installation
+    scp-cli --help
+
+
 
 # Add bash completion and source completion scripts
 RUN echo 'source /usr/share/bash-completion/bash_completion' >> /etc/bash.bashrc && \
@@ -79,6 +86,7 @@ RUN echo 'source /usr/share/bash-completion/bash_completion' >> /etc/bash.bashrc
     echo 'alias k="kubectl"' >> /etc/bash.bashrc && \
     echo 'alias h="helm"' >> /etc/bash.bashrc && \
     echo 'alias tf="terraform"' >> /etc/bash.bashrc && \
+    echo 'alias scp="scp-cli"' >> /etc/bash.bashrc && \
     echo 'complete -o default -F __start_kubectl k' >> /etc/bash.bashrc
 
 # Install VS Code extensions for autocompletion
