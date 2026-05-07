@@ -46,10 +46,6 @@ git checkout no-tls
 chmod +x install_docker.sh
 ./install_docker.sh
 
-# Public IP 업데이트 스크립트 실행
-chmod +x update_ip.sh
-./update_ip.sh
-
 # Docker 이미지 다운로드
 docker pull "$IMAGE_NAME"
 
